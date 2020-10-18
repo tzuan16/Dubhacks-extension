@@ -10,10 +10,12 @@ window.addEventListener('load', function () {
 	f.setAttribute('action',"submit.php");
 
 	var i = document.createElement("input"); //input element, text
+	i.setAttribute('id', "comment_text");
 	i.setAttribute('type',"text");
 	i.setAttribute('name',"username");
 
 	var s = document.createElement("input"); //input element, Submit button
+	s.setAttribute('id', "comment_button");
 	s.setAttribute('type',"submit");
 	s.setAttribute('value',"Submit");
 
@@ -38,5 +40,13 @@ window.addEventListener('load', function () {
 	    'font-size': '48',
 	    'z-index': '300000',
   	});
+
+
+	f.addEventListener('submit', handleSubmit);
+	function handleSubmit(e) {
+	 	writeDataToFireBase(document.getElementById('comment_text').value);
+		e.preventDefault();
+		document.getElementById('comment_text').value = ''
+	}
 })
 
