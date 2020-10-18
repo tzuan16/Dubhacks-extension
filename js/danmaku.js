@@ -1,7 +1,6 @@
 var comments = {
   '00:00:01': ['welcome'],
 };
-
 var firebaseConfig = {
   apiKey: 'AIzaSyCZ4aKEj0k1tOXw9C1fbhgbs5lXU7GQMQ0',
   authDomain: 'dubhacks-292821.firebaseapp.com',
@@ -94,7 +93,8 @@ function checkLiveTime() {
     console.log('hihihih');
   } else {
     prev_livetime = liveTime;
-    if (comments[liveTime]) {
+    console.log('checkLiveTime is working');
+    if (comments && comments[liveTime]) {
       insertComments(comments[liveTime], liveTime);
     }
   }
@@ -138,8 +138,8 @@ function insertComment(commentText) {
   });
   document.body.appendChild(commentSpan);
 
-  var speed = Math.floor(Math.random() * 3) + 2;
-  var delay = 7;
+  var speed = Math.floor(Math.random() * 3) + 1;
+  var delay = 10;
   var videoDiv = document.getElementsByClassName('player-view')[0];
   var videoCoordinates = videoDiv.getBoundingClientRect();
   var xPos = videoCoordinates.right - commentSpan.offsetWidth;
@@ -151,10 +151,6 @@ function insertComment(commentText) {
   }
   function rollMethod() {
     var minX = videoCoordinates.left;
-    // var minY = rect.top;
-    // var maxX, maxY;
-    // maxX = videoField.offsetWidth;
-    // maxY = videoField.offsetHeight;
     commentSpan.style.left = xPos + 'px';
     commentSpan.style.top = yPos + 'px';
     xPos = xPos - speed;
@@ -173,34 +169,4 @@ function insertComments(commentsAtTime, liveTime) {
   }
 }
 
-function addTextBox() {
-  var form = document.createElement('form');
-  form.setAttribute('id', 'text_form');
-  form.setAttribute('method', 'POST');
-  var input = document.createElement('input');
-  input.setAttribute('id', 'text');
-  var button = document.createElement('button');
-  button.setAttribute('type', 'submit');
-  form.appendChild(input);
-  form.appendChild(button);
-  var videoDiv = document.getElementsByClassName('player-view')[0];
-  var videoCoordinates = videoDiv.getBoundingClientRect();
-  var xPos = videoCoordinates.left;
-  var yPos = videoCoordinates.bottom;
-
-  $(form).css({
-    position: 'absolute',
-    left: xPos,
-    top: yPos,
-    'z-index': '300000',
-  });
-  document.body.appendChild(form);
-  setFocusToTextBox();
-}
-
-function setFocusToTextBox() {
-  document.getElementById('text').focus();
-}
-
-addTextBox();
 var intervalID = window.setInterval(checkLiveTime, 1000);
