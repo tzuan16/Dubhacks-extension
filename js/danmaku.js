@@ -169,4 +169,6 @@ function insertComments(commentsAtTime, liveTime) {
   }
 }
 
+
+
 var intervalID = window.setInterval(checkLiveTime, 1000);
