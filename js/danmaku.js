@@ -1,22 +1,36 @@
-var comments = [
-  ['YouDanmaku', 2],
-  ['I am really enjoying all of these comments', 26],
-  ['danmaku looks great', 22],
-  ['comment 2', 35],
-  ['中文测试 Chinese', 25],
-  ['¡Hola, Mundo!', 23],
-  ['Hello world', 22],
-  ['ユーチューブ動画', 23],
-  ['comment 2', 38],
-  ['comment 2', 39],
-  ['comment 2', 46],
-  ['comment 2', 52],
-  ['comment 2', 22],
-  ['comment 3', 21],
-  ['hello Hack PSU', 5],
-  ['happy Hack', 8],
-  ['hello Hack PSU', 17],
-];
+// var comments = [
+//   ['YouDanmaku', 2],
+//   ['I am really enjoying all of these comments', 26],
+//   ['danmaku looks great', 22],
+//   ['comment 2', 35],
+//   ['中文测试 Chinese', 25],
+//   ['¡Hola, Mundo!', 23],
+//   ['Hello world', 22],
+//   ['ユーチューブ動画', 23],
+//   ['comment 2', 38],
+//   ['comment 2', 39],
+//   ['comment 2', 46],
+//   ['comment 2', 52],
+//   ['comment 2', 22],
+//   ['comment 3', 21],
+//   ['hello Hack PSU', 5],
+//   ['happy Hack', 8],
+//   ['hello Hack PSU', 17],
+// ];
+var comments = {
+  '00:21': [
+    'this is from write again',
+    'this is from write again',
+    'this is from write again',
+    'this is from write again',
+    'this is from write again',
+    'this is from write again',
+    'this is from write again',
+    'this is from write again',
+  ],
+  '00:23': ['new test', 'new test2', 'new test696996'],
+};
+
 var i = 0;
 flag = false;
 // comments.sort(function (comment1, comment2) {
@@ -28,9 +42,21 @@ flag = false;
 //   }
 //   return 0;
 // });
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  writeDataToFireBase(request.comment);
+  sendResponse({ confirm: 'received' });
+});
 
-var oldURL = location.href;
+function writeDataToFireBase(comment) {
+  var liveTime = getVideoTime();
+  console.log(liveTime);
+  var href = location.href.split('/');
+  // if (href.length > )
+  console.log(href[5]);
+  console.log(comment);
+}
 
+// var oldURL = location.href;
 // function checkURL() {
 //   var newURL = location.href;
 //   if (newURL != oldURL) {
@@ -48,19 +74,29 @@ function checkLiveTime() {
   }
 }
 
-function getVideoTime() {
-  var timestamp;
-  var time = document
-    .getElementsByClassName('ytp-time-current')[0]
-    .innerHTML.split(':');
-  if (time.length == 2) {
-    timestamp = Number(time[0]) * 60 + Number(time[1]);
-  } else {
-    timestamp = Number(time[0] * 3600) + Number(time[1]) * 60 + Number(time[2]);
-  }
+// function getVideoTime() {
+//   var timestamp;
+//   var time = document
+//     .getElementsByClassName('ytp-time-current')[0]
+//     .innerHTML.split(':');
+//   if (time.length == 2) {
+//     timestamp = Number(time[0]) * 60 + Number(time[1]);
+//   } else {
+//     timestamp = Number(time[0] * 3600) + Number(time[1]) * 60 + Number(time[2]);
+//   }
 
+//   return timestamp;
+// }
+
+function getVideoTime() {
+  var timestamp = 0;
+  var element = document.getElementsByClassName('vjs-time-range-current');
+  if (element.length > 0) {
+    timestamp = element[0].innerHTML;
+  }
   return timestamp;
 }
+
 function insertCommments(commentsAtTime) {
   for (j = 0; j < commentsAtTime.length; j++) {
     insertCommment(comments[liveTime][j]);
