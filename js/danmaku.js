@@ -77,20 +77,21 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 function writeDataToFireBase(comment) {
-  insertComment(comment);
-  var liveTime = getVideoTime();
-  console.log(liveTime);
-  var href = getURL();
-  console.log(href);
-  console.log(comment);
-  writeData(href, liveTime, comment);
+  if (comment !== "") {
+    insertComment(comment);
+    var liveTime = getVideoTime();
+    var href = getURL();
+    //console.log(href);
+    //console.log(comment);
+    writeData(href, liveTime, comment);
+  }
+
 }
 
 var prev_livetime = '';
 function checkLiveTime() {
   var liveTime = getVideoTime();
   if (prev_livetime == liveTime) {
-    console.log('hihihih');
   } else {
     prev_livetime = liveTime;
     console.log('checkLiveTime is working');
