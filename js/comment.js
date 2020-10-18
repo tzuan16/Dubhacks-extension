@@ -3,6 +3,7 @@ var comments = [["YouDanmaku", 2],["I am really enjoying all of these comments",
 var i = 0;
 flag = false;
 
+console.log("yoouououououoou")
 comments.sort(function(comment1, comment2){ 
     if (comment1[1] < comment2[1]) {
         return -1;
@@ -29,7 +30,10 @@ function checkLiveTime() {
         return;
     }
     var liveTime = getVideoTime();
+    console.log(liveTime)
+
     if (comments[i][1] <= liveTime) {
+        console.log("hihi");
         displayCommment(comments[i][0]);
         i++;
     }
@@ -37,7 +41,7 @@ function checkLiveTime() {
 
 function getVideoTime() {
     var timestamp;
-    var time = document.getElementsByClassName("ytp-time-current")[0].innerHTML.split(":");
+    var time = document.getElementsByClassName("vjs-time-range-current")[0].innerHTML.split(":");
     if (time.length == 2) {
         timestamp = Number(time[0]) * 60 + Number(time[1]);
     }
@@ -177,3 +181,4 @@ document.addEventListener("DOMSubtreeModified", function() {
 //window.onload = displayCommment("Comment is the best thing");
 
 var intervalID = window.setInterval(checkLiveTime, 500);
+
