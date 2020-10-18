@@ -149,43 +149,57 @@ function insertComment(commentText) {
   if (yPos < videoCoordinates.top) {
     yPos = videoCoordinates.top;
   }
-
-  function insertComments(commentsAtTime, liveTime) {
-    console.log('insertsComments');
-    console.log(commentsAtTime);
-    for (j = 0; j < commentsAtTime.length; j++) {
-      insertComment(comments[liveTime][j]);
+  function rollMethod() {
+    var minX = videoCoordinates.left;
+    // var minY = rect.top;
+    // var maxX, maxY;
+    // maxX = videoField.offsetWidth;
+    // maxY = videoField.offsetHeight;
+    commentSpan.style.left = xPos + 'px';
+    commentSpan.style.top = yPos + 'px';
+    xPos = xPos - speed;
+    if (xPos < minX) {
+      $(commentSpan).remove();
     }
   }
+  setInterval(rollMethod, delay);
+}
 
-  function addTextBox() {
-    var form = document.createElement('form');
-    form.setAttribute("id", "text_form");
-    form.setAttribute("method", "POST");
-    var input = document.createElement('input');
-    input.setAttribute("id", "text");
-    var button = document.createElement('button');
-    button.setAttribute("type", "submit");
-    form.appendChild(input);
-    form.appendChild(button);
-    var videoDiv = document.getElementsByClassName('player-view')[0];
-    var videoCoordinates = videoDiv.getBoundingClientRect();
-    var xPos = videoCoordinates.left;
-    var yPos = videoCoordinates.bottom;
+function insertComments(commentsAtTime, liveTime) {
+  console.log('insertsComments');
+  console.log(commentsAtTime);
+  for (j = 0; j < commentsAtTime.length; j++) {
+    insertComment(comments[liveTime][j]);
+  }
+}
 
-    $(form).css({
-      position: 'absolute',
-      left: xPos,
-      top: yPos,
-      'z-index': '300000',
-    });
-    document.body.appendChild(form);
+function addTextBox() {
+  var form = document.createElement('form');
+  form.setAttribute('id', 'text_form');
+  form.setAttribute('method', 'POST');
+  var input = document.createElement('input');
+  input.setAttribute('id', 'text');
+  var button = document.createElement('button');
+  button.setAttribute('type', 'submit');
+  form.appendChild(input);
+  form.appendChild(button);
+  var videoDiv = document.getElementsByClassName('player-view')[0];
+  var videoCoordinates = videoDiv.getBoundingClientRect();
+  var xPos = videoCoordinates.left;
+  var yPos = videoCoordinates.bottom;
 
+  $(form).css({
+    position: 'absolute',
+    left: xPos,
+    top: yPos,
+    'z-index': '300000',
+  });
+  document.body.appendChild(form);
   setFocusToTextBox();
 }
 
-function setFocusToTextBox(){
-  document.getElementById("text").focus();
+function setFocusToTextBox() {
+  document.getElementById('text').focus();
 }
 
 addTextBox();
