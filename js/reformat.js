@@ -31,22 +31,6 @@ window.addEventListener('load', function () {
 
 	element[0].appendChild(f);
 
-<<<<<<< HEAD
-	$(f).css({
-		position: 'absolute',
-		'white-space': 'nowrap',
-		height: '20px',
-		left: videoCoordinates.left + 'px',
-		top: videoCoordinates.bottom + 'px',
-		cursor: 'pointer',
-		'font-weight': '600',
-		'font-size': '48',
-		'z-index': '300000',
-	});
-
-=======
->>>>>>> af5c1b3add45c8167ef8e37f03ee571b1946e0fb
-
 	f.addEventListener('submit', handleSubmit);
 	function handleSubmit(e) {
 		writeDataToFireBase(document.getElementById('comment_text').value);
