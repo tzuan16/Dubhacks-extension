@@ -12,25 +12,30 @@ window.addEventListener('load', function () {
   recognition.lang = 'en-US';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
-  document.getElementById("recording").addEventListener('click', () => {
+  document.getElementById('recording').addEventListener('click', (e) => {
     if (!recording) {
       recognition.start();
-      console.log("started")
+      console.log('started');
+      document.getElementById('recording').style.backgroundColor = 'red';
+      document.getElementById('recording').style.color = 'white';
     } else {
       recognition.stop();
-      console.log("stopped")
+      console.log('stopped');
+      document.getElementById('recording').style.backgroundColor = 'white';
+      document.getElementById('recording').style.color = '#4a90e2';
     }
-    recording = !recording
-  })
+    recording = !recording;
+  });
 
   recognition.onresult = function (event) {
     if (event.results[event.results.length - 1][0].confidence > 0.85) {
-      console.log(event.results[event.results.length - 1][0].transcript)
-      writeDataToFireBase(event.results[event.results.length - 1][0].transcript)
+      console.log(event.results[event.results.length - 1][0].transcript);
+      writeDataToFireBase(
+        event.results[event.results.length - 1][0].transcript
+      );
     }
-  }
-
-})
+  };
+});
 
 function microphoneStream(encoding, sampleRateHertz, languageCode) {
   // [START micStreamRecognize]
@@ -58,15 +63,14 @@ function microphoneStream(encoding, sampleRateHertz, languageCode) {
   const recognizeStream = client
     .streamingRecognize(request)
     .on('error', console.error)
-    .on('data', data => {
-      console.log(data)
+    .on('data', (data) => {
+      console.log(data);
       process.stdout.write(
         data.results[0] && data.results[0].alternatives[0]
           ? `Transcription: ${data.results[0].alternatives[0].transcript}\n`
           : '\n\nReached transcription time limit, press Ctrl+C\n'
-      )
-    }
-    );
+      );
+    });
 
   // Start recording and send the microphone input to the Speech API
   recorder
