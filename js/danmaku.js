@@ -134,7 +134,7 @@ function insertComment(commentText) {
     top: '0',
     cursor: 'pointer',
     'font-weight': '600',
-    'font-size': '50px',
+    'font-size': '30px',
     'z-index': '300000',
   });
   document.body.appendChild(commentSpan);
