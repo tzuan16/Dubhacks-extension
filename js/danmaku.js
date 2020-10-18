@@ -134,13 +134,13 @@ function insertComment(commentText) {
     top: '0',
     cursor: 'pointer',
     'font-weight': '600',
-    'font-size': '70',
+    'font-size': '500',
     'z-index': '300000',
   });
   document.body.appendChild(commentSpan);
 
   var speed = Math.floor(Math.random() * 3) + 1;
-  var delay = 10;
+  var delay = 5; //was 10
   var videoDiv = document.getElementsByClassName('player-view')[0];
   var videoCoordinates = videoDiv.getBoundingClientRect();
   var xPos = videoCoordinates.right - commentSpan.offsetWidth;
