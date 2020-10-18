@@ -25,6 +25,6 @@ function handleSubmit(e) {
   const comment = document.getElementById("text").value
   e.preventDefault()
   chrome.tabs.query({ active: true }, (tab) => {
-    console.log(tab)
-  })
+    chrome.tabs.sendMessage(tab[0].id, { comment: comment }, (res) => { console.log(res.confirm) });
+  });
 }
