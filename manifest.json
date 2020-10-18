@@ -5,14 +5,25 @@
   "permissions": [
     "activeTab",
     "declarativeContent",
-    "storage"  
+    "storage",
+    "tabs"
   ],
-  "content_scripts": [{
-      "matches": ["https://www.youtube.com/*", "https://washington.zoom.us/*"],
-      "js": ["jquery-2.1.3.min.js", /*"main.js",*/ "js/comment.js"],
-      "css": ["main.css"],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://washington.zoom.us/*"
+      ],
+      "js": [
+        "jquery-2.1.3.min.js",
+        "js/comment.js"
+      ],
+      "css": [
+        "main.css"
+      ],
       "run_at": "document_end"
-  }],
+    }
+  ],
   "background": {
     "scripts": [
       "background.js"

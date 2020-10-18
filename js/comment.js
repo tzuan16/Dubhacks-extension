@@ -1,10 +1,17 @@
-var comments = [["YouDanmaku", 2],["I am really enjoying all of these comments", 26], ["danmaku looks great", 22], ["comment 2", 35],["中文测试 Chinese", 25],["¡Hola, Mundo!", 23],["Hello world", 22],["ユーチューブ動画", 23],["comment 2", 38],["comment 2", 39],["comment 2", 46],["comment 2", 52],["comment 2", 22],["comment 3", 21],["hello Hack PSU",5],["happy Hack",8],["hello Hack PSU",17]];
+var comments = [["YouDanmaku", 2], ["I am really enjoying all of these comments", 26], ["danmaku looks great", 22], ["comment 2", 35], ["中文测试 Chinese", 25], ["¡Hola, Mundo!", 23], ["Hello world", 22], ["ユーチューブ動画", 23], ["comment 2", 38], ["comment 2", 39], ["comment 2", 46], ["comment 2", 52], ["comment 2", 22], ["comment 3", 21], ["hello Hack PSU", 5], ["happy Hack", 8], ["hello Hack PSU", 17]];
 
 var i = 0;
 flag = false;
 
 console.log("yoouououououoou")
-comments.sort(function(comment1, comment2){ 
+
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        console.log(request.comment)
+        sendResponse({ confirm: "received" })
+    });
+
+comments.sort(function (comment1, comment2) {
     if (comment1[1] < comment2[1]) {
         return -1;
     }
@@ -70,7 +77,7 @@ function displayCommment(commentText) {
     var commentPiece = document.createElement("span");
     var t = document.createTextNode(commentText);
     commentPiece.appendChild(t);
-    var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+    var color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
     $(commentPiece).css({
         "position": "absolute",
         "width": "auto",
@@ -142,11 +149,11 @@ function insert_comment_block() {
     var textbox = "<div id ='comment_block' class='yt-card'><form id='comment_form'><textarea id='comment' /><input type='submit' id='submit' value='Post'></form></div>";
     $(textbox).insertBefore("#watch-discussion");
 
-    $("#submit").on("click", function(e) {
+    $("#submit").on("click", function (e) {
         e.preventDefault();
-        
+
         var videoId = location.href.substr(location.href.indexOf("=") + 1);
-        
+
         var timestamp;
         var time = document.getElementsByClassName("ytp-time-current")[0].innerHTML.split(":");
         if (time.length == 2) {
@@ -155,32 +162,31 @@ function insert_comment_block() {
         else {
             timestamp = Number(time[0] * 3600) + Number(time[1]) * 60 + Number(time[2]);
         }
-        
+
         var comment = document.getElementById("comment").value;
-        comment = comment.replace(/(\r\n|\n|\r)/gm," ");
+        comment = comment.replace(/(\r\n|\n|\r)/gm, " ");
         if (comment.length > 140) {
             alert("Too many characters!");
             return false;
         }
-        var dataString = 'VideoId='+ videoId + '&Timestamp='+ timestamp + '&Comment='+ comment;
+        var dataString = 'VideoId=' + videoId + '&Timestamp=' + timestamp + '&Comment=' + comment;
 
         $.ajax({
             type: "POST",
             url: "https://youtubecomment.azurewebsites.net/youtube/upload.php",
             data: dataString,
             cache: false,
-            success: function(response)
-            {
+            success: function (response) {
                 $("#comment_form").html(response);
             }
         });
-        
+
         return false
     });
 }
 
 var timeout = null;
-document.addEventListener("DOMSubtreeModified", function() {
+document.addEventListener("DOMSubtreeModified", function () {
     if (timeout) {
         clearTimeout(timeout);
     }
