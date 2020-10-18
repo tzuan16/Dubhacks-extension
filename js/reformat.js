@@ -5,18 +5,20 @@ window.addEventListener('load', function () {
 	var videoCoordinates = videoDiv.getBoundingClientRect();
 
 	var f = document.createElement("form");
+	f.setAttribute('id', "comment_form");
 	f.setAttribute('method', "post");
 	f.setAttribute('action', "submit.php");
 
 	var i = document.createElement("input"); //input element, text
 	i.setAttribute('id', "comment_text");
 	i.setAttribute('type', "text");
-	i.setAttribute('name', "username");
+	i.setAttribute('placeholder', "Type something...");
+
 
 	var s = document.createElement("input"); //input element, Submit button
 	s.setAttribute('id', "comment_button");
 	s.setAttribute('type', "submit");
-	s.setAttribute('value', "Submit");
+	s.setAttribute('value', "SEND");
 
 	var b = document.createElement("button");
 	b.setAttribute('id', "recording")
@@ -26,13 +28,10 @@ window.addEventListener('load', function () {
 	f.appendChild(s);
 	f.appendChild(b)
 
-	//and some more input elements here
-	//and dont forget to add a submit button
-
-
 
 	element[0].appendChild(f);
 
+<<<<<<< HEAD
 	$(f).css({
 		position: 'absolute',
 		'white-space': 'nowrap',
@@ -45,6 +44,8 @@ window.addEventListener('load', function () {
 		'z-index': '300000',
 	});
 
+=======
+>>>>>>> af5c1b3add45c8167ef8e37f03ee571b1946e0fb
 
 	f.addEventListener('submit', handleSubmit);
 	function handleSubmit(e) {
@@ -52,5 +53,9 @@ window.addEventListener('load', function () {
 		e.preventDefault();
 		document.getElementById('comment_text').value = ''
 	}
+
+	var target = document.getElementById('comment_button');
+	target.innerHTML = html.join('');
+
 })
 
