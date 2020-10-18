@@ -1,40 +1,6 @@
-// var comments = [
-//   ['YouDanmaku', 2],
-//   ['I am really enjoying all of these comments', 26],
-//   ['danmaku looks great', 22],
-//   ['comment 2', 35],
-//   ['中文测试 Chinese', 25],
-//   ['¡Hola, Mundo!', 23],
-//   ['Hello world', 22],
-//   ['ユーチューブ動画', 23],
-//   ['comment 2', 38],
-//   ['comment 2', 39],
-//   ['comment 2', 46],
-//   ['comment 2', 52],
-//   ['comment 2', 22],
-//   ['comment 3', 21],
-//   ['hello Hack PSU', 5],
-//   ['happy Hack', 8],
-//   ['hello Hack PSU', 17],
-// ];
-
-// require "ReadFirebase.js"
-
 var comments = {
-  '00:00:01': [
-    'this is from write again',
-    'this is from write again',
-    'this is from write again',
-    'this is from write again',
-    'this is from write again',
-    'this is from write again',
-    'this is from write again',
-    'this is from write again',
-  ],
-  '00:00:03': ['new test', 'new test2', 'new test696996'],
+  '00:00:01': ['welcome'],
 };
-
-
 
 var firebaseConfig = {
   apiKey: 'AIzaSyCZ4aKEj0k1tOXw9C1fbhgbs5lXU7GQMQ0',
@@ -78,7 +44,7 @@ function writeData(classId, timeStamp, comment) {
   });
 }
 
-function getURL(){
+function getURL() {
   var href = location.href.split('/');
 
   return href[5].split('?')[0];
@@ -103,20 +69,9 @@ async function callAsync() {
 
 callAsync();
 
-
-
-
 var i = 0;
 flag = false;
-// comments.sort(function (comment1, comment2) {
-//   if (comment1[1] < comment2[1]) {
-//     return -1;
-//   }
-//   if (comment1[1] > comment2[1]) {
-//     return 1;
-//   }
-//   return 0;
-// });
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   writeDataToFireBase(request.comment);
   sendResponse({ confirm: 'received' });
@@ -129,47 +84,21 @@ function writeDataToFireBase(comment) {
   var href = getURL();
   console.log(href);
   console.log(comment);
-  writeData(href, liveTime,comment);
+  writeData(href, liveTime, comment);
 }
 
-// var oldURL = location.href;
-// function checkURL() {
-//   var newURL = location.href;
-//   if (newURL != oldURL) {
-//     insert_comment_block();
-//     oldURL = newURL;
-//     flag = true;
-//   }
-// }
-
-// Can let Alvin and Eugene check
-
-var prev_livetime = ''; 
+var prev_livetime = '';
 function checkLiveTime() {
-  var liveTime = getVideoTime(); // They will give us
-  if(prev_livetime == liveTime){
-    console.log("hihihih");
-  }else{
-    prev_livetime = liveTime
+  var liveTime = getVideoTime();
+  if (prev_livetime == liveTime) {
+    console.log('hihihih');
+  } else {
+    prev_livetime = liveTime;
     if (comments[liveTime]) {
       insertComments(comments[liveTime], liveTime);
     }
   }
 }
-
-// function getVideoTime() {
-//   var timestamp;
-//   var time = document
-//     .getElementsByClassName('ytp-time-current')[0]
-//     .innerHTML.split(':');
-//   if (time.length == 2) {
-//     timestamp = Number(time[0]) * 60 + Number(time[1]);
-//   } else {
-//     timestamp = Number(time[0] * 3600) + Number(time[1]) * 60 + Number(time[2]);
-//   }
-
-//   return timestamp;
-// }
 
 function getVideoTime() {
   var timestamp = 0;
@@ -181,8 +110,8 @@ function getVideoTime() {
 }
 
 function insertComments(commentsAtTime, liveTime) {
-  console.log("insertsComments")
-  console.log(commentsAtTime)
+  console.log('insertsComments');
+  console.log(commentsAtTime);
   for (j = 0; j < commentsAtTime.length; j++) {
     insertComment(comments[liveTime][j]);
   }
@@ -191,7 +120,8 @@ function insertComment(commentText) {
   var commentSpan = document.createElement('span');
   var t = document.createTextNode(commentText);
   commentSpan.appendChild(t);
-  var color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
+  var color =
+    '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
   $(commentSpan).css({
     position: 'absolute',
     width: 'auto',
@@ -208,121 +138,55 @@ function insertComment(commentText) {
   });
   document.body.appendChild(commentSpan);
 
-  // var obj = commentSpan;
   var speed = Math.floor(Math.random() * 3) + 2;
   var delay = 7;
   var videoDiv = document.getElementsByClassName('player-view')[0];
   var videoCoordinates = videoDiv.getBoundingClientRect();
   var xPos = videoCoordinates.right - commentSpan.offsetWidth;
-  var yPos = Math.floor(
-    (Math.random() * videoDiv.offsetHeight  + videoCoordinates.top)
-  ) - 25;
-  if(yPos < videoCoordinates.top ){
+  var yPos =
+    Math.floor(Math.random() * videoDiv.offsetHeight + videoCoordinates.top) -
+    25;
+  if (yPos < videoCoordinates.top) {
     yPos = videoCoordinates.top;
   }
 
-  function rollMethod() {
-    var minX = videoCoordinates.left;
-    // var minY = rect.top;
-    // var maxX, maxY;
-    // maxX = videoField.offsetWidth;
-    // maxY = videoField.offsetHeight;
-    commentSpan.style.left = xPos + 'px';
-    commentSpan.style.top = yPos + 'px';
-    xPos = xPos - speed;
-    if (xPos < minX) {
-      $(commentSpan).remove();
+  function insertComments(commentsAtTime, liveTime) {
+    console.log('insertsComments');
+    console.log(commentsAtTime);
+    for (j = 0; j < commentsAtTime.length; j++) {
+      insertComment(comments[liveTime][j]);
     }
   }
-  // var floatGo =
-  setInterval(rollMethod, delay);
+
+  function addTextBox() {
+    var form = document.createElement('form');
+    form.setAttribute("id", "text_form");
+    form.setAttribute("method", "POST");
+    var input = document.createElement('input');
+    input.setAttribute("id", "text");
+    var button = document.createElement('button');
+    button.setAttribute("type", "submit");
+    form.appendChild(input);
+    form.appendChild(button);
+    var videoDiv = document.getElementsByClassName('player-view')[0];
+    var videoCoordinates = videoDiv.getBoundingClientRect();
+    var xPos = videoCoordinates.left;
+    var yPos = videoCoordinates.bottom;
+
+    $(form).css({
+      position: 'absolute',
+      left: xPos,
+      top: yPos,
+      'z-index': '300000',
+    });
+    document.body.appendChild(form);
+
+  setFocusToTextBox();
 }
-/*
-var danmaku = {
-    comment_datas: [],
-    ajaxLoadComments: function() {
-        var videoId = location.href.substr(location.href.indexOf("=") + 1);
-        var data = {
-            call   : "loadComments",
-            videoID: videoId
-        };
-        var self = this;
-        chrome.extension.sendRequest(data, function(response) {
-            self.comment_datas = JSON.parse(response.result);
-        });
-    }
-//    start: function() {}
+
+function setFocusToTextBox(){
+  document.getElementById("text").focus();
 }
-*/
 
-/*
-
-function displayer() {
-    danmaku.ajaxLoadComments();
-}*/
-
-// function insert_comment_block() {
-//   var textbox =
-//     "<div id ='comment_block' class='yt-card'><form id='comment_form'><textarea id='comment' /><input type='submit' id='submit' value='Post'></form></div>";
-//   $(textbox).insertBefore('#watch-discussion');
-
-//   $('#submit').on('click', function (e) {
-//     e.preventDefault();
-
-//     var videoId = location.href.substr(location.href.indexOf('=') + 1);
-
-//     var timestamp;
-//     var time = document
-//       .getElementsByClassName('ytp-time-current')[0]
-//       .innerHTML.split(':');
-//     if (time.length == 2) {
-//       timestamp = Number(time[0]) * 60 + Number(time[1]);
-//     } else {
-//       timestamp =
-//         Number(time[0] * 3600) + Number(time[1]) * 60 + Number(time[2]);
-//     }
-
-//     var comment = document.getElementById('comment').value;
-//     comment = comment.replace(/(\r\n|\n|\r)/gm, ' ');
-//     if (comment.length > 140) {
-//       alert('Too many characters!');
-//       return false;
-//     }
-//     var dataString =
-//       'VideoId=' + videoId + '&Timestamp=' + timestamp + '&Comment=' + comment;
-
-//     $.ajax({
-//       type: 'POST',
-//       url: 'https://youtubecomment.azurewebsites.net/youtube/upload.php',
-//       data: dataString,
-//       cache: false,
-//       success: function (response) {
-//         $('#comment_form').html(response);
-//       },
-//     });
-
-//     return false;
-//   });
-// }
-
-// var timeout = null;
-// document.addEventListener(
-//   'DOMSubtreeModified',
-//   function () {
-//     if (timeout) {
-//       clearTimeout(timeout);
-//     }
-//     timeout = setTimeout(checkURL, 500);
-//   },
-//   false
-// );
-
-//setInterval(checkLiveTime, 500);
-
-//window.onload = displayCommment("Comment is the best thing");
-
+addTextBox();
 var intervalID = window.setInterval(checkLiveTime, 1000);
-
-
-
-
