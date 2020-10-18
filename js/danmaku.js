@@ -143,10 +143,17 @@ function writeDataToFireBase(comment) {
 // }
 
 // Can let Alvin and Eugene check
+
+var prev_livetime = ''; 
 function checkLiveTime() {
   var liveTime = getVideoTime(); // They will give us
-  if (comments[liveTime]) {
-    insertComments(comments[liveTime], liveTime);
+  if(prev_livetime == liveTime){
+    console.log("hihihih");
+  }else{
+    prev_livetime = liveTime
+    if (comments[liveTime]) {
+      insertComments(comments[liveTime], liveTime);
+    }
   }
 }
 
@@ -314,7 +321,7 @@ function displayer() {
 
 //window.onload = displayCommment("Comment is the best thing");
 
-var intervalID = window.setInterval(checkLiveTime, 500);
+var intervalID = window.setInterval(checkLiveTime, 1000);
 
 
 
