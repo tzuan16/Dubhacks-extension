@@ -1,5 +1,5 @@
 var comments = {
-  '00:00:01': ['welcome'],
+  '00:00:01': ['Welcome to the recording!'],
 };
 var firebaseConfig = {
   apiKey: 'AIzaSyCZ4aKEj0k1tOXw9C1fbhgbs5lXU7GQMQ0',
@@ -129,12 +129,12 @@ function insertComment(commentText) {
     'max-width': '250px',
     'white-space': 'nowrap',
     color: color,
-    height: '20px',
+    height: '25px',
     left: '0',
     top: '0',
     cursor: 'pointer',
     'font-weight': '600',
-    'font-size': '48',
+    'font-size': '70',
     'z-index': '300000',
   });
   document.body.appendChild(commentSpan);
@@ -171,5 +171,5 @@ function insertComments(commentsAtTime, liveTime) {
 }
 
 
-
-var intervalID = window.setInterval(checkLiveTime, 1000);
+// var intervalID =
+window.setInterval(checkLiveTime, 1000);
