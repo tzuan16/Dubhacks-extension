@@ -1,30 +1,28 @@
 #comment {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    margin-right: 30px;
-    margin-left: 30px;
-    width: 70%;
-    height: 100px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-right: 30px;
+  margin-left: 30px;
+  width: 70%;
+  height: 100px;
 }
 
 body {
-	background:  #282F32;
- 	color: white;
+  background: #282f32;
+  color: white;
 }
 
-#app{
-	color: white;
+#app {
+  color: white;
 }
 
-span{
-	color: white;
+span {
+  color: white;
 }
 
-.topic{
-	color: white !important;
+.topic {
+  color: white !important;
 }
-
-
 
 /*input[type="text"]{
   width: 100%;
@@ -38,51 +36,41 @@ span{
   border-bottom: 1px solid  #999;
 }*/
 
-
-
-
 /*--------------------
 Message Box
 --------------------*/
+
 #comment_form {
   -webkit-box-flex: 0;
-          flex: 0 1 42px;
+  flex: 0 1 42px;
   width: 90%;
   background: #fff;
   margin: 2px auto;
-/*  margin-top: 50px;
-*/  /*-webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);
-  box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);*/
-  /*background: rgba(0, 0, 0, 0.3);
-    border-top:1px solid #e3e3e3;*/
+
   padding: 10px;
-  position: relative;
   border-radius: 20px;
   height: 14px;
   border: 1px solid #ccc;
-
-
-	position: absolute;
-	white-space: nowrap;
-	height: 44px;
-	width: 300px;
-	left: 30px;
-	top: 535.656px;
-	cursor: pointer;
-	font-weight: 600;
-	z-index: 300000;
-
+  position: absolute;
+  white-space: nowrap;
+  height: 44px;
+  width: 450px;
+  cursor: pointer;
+  font-weight: 600;
+  z-index: 300000;
 }
 #comment_form #comment_text {
+  position: relative;
+
   background: none;
+  top: -10px;
   border: none;
   outline: none !important;
   resize: none;
   /* color: rgba(255, 255, 255, .8);*/
   font-size: 15px;
   height: 24px;
-  margin: 0;
+  margin: auto;
   padding-right: 20px;
   width: 265px;
   color: #444;
@@ -90,12 +78,12 @@ Message Box
 #comment_form textarea:focus:-webkit-placeholder {
   color: transparent;
 }
-#comment_form #comment_button{
+#comment_form #comment_button {
   position: absolute;
   z-index: 1;
   top: 9px;
   right: 10px;
-  color: #4A90E2;
+  color: #4a90e2;
   border: none;
   /* background: #c29d5f;*/
   background: #fff;
@@ -105,13 +93,33 @@ Message Box
   padding: 6px 10px;
   border-radius: 5px;
   outline: none !important;
-  -webkit-transition: background .2s ease;
-  transition: background .2s ease;
+  -webkit-transition: background 0.2s ease;
+  transition: background 0.2s ease;
   cursor: pointer;
 }
+
+#recording {
+  height: 44px;
+  position: relative;
+  margin: 0;
+  top: -10px;
+  left: 180px;
+  z-index: 1;
+  color: #4a90e2;
+  border: none;
+  /* background: #c29d5f;*/
+  background: #fff;
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 5px;
+  -webkit-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
 .message-box #comment_button:hover {
   background: #fff;
   color: #333;
 }
-
-
