@@ -16,6 +16,10 @@ comments.sort(function(comment1, comment2){
 
 var oldURL = location.href;
 
+function writeDataToFireBase(){
+    
+}
+
 function checkURL() {
     var newURL = location.href;
     if (newURL != oldURL) {
@@ -26,11 +30,16 @@ function checkURL() {
 }
 
 function checkLiveTime() {
+    var liveTime = getVideoTime();
+    console.log(liveTime);
+    var href = location.href.split('/');
+    // if (href.length > )
+    console.log(href[5]);
+
     if (i >= comments.length || !flag) {
         return;
     }
-    var liveTime = getVideoTime();
-    console.log(liveTime)
+    
 
     if (comments[i][1] <= liveTime) {
         console.log("hihi");
@@ -40,13 +49,17 @@ function checkLiveTime() {
 }
 
 function getVideoTime() {
-    var timestamp;
-    var time = document.getElementsByClassName("vjs-time-range-current")[0].innerHTML.split(":");
-    if (time.length == 2) {
-        timestamp = Number(time[0]) * 60 + Number(time[1]);
-    }
-    else {
-        timestamp = Number(time[0] * 3600) + Number(time[1]) * 60 + Number(time[2]);
+    var timestamp = 0;
+    var element = document.getElementsByClassName("vjs-time-range-current");
+    if (element.length > 0){
+        timestamp = element[0].innerHTML;
+        // var time = element[0].innerHTML.split(":");
+        // if (time.length == 2) {
+        //     timestamp = Number(time[0]) * 60 + Number(time[1]);
+        // }
+        // else {
+        //     timestamp = Number(time[0] * 3600) + Number(time[1]) * 60 + Number(time[2]);
+        // }
     }
 
     return timestamp;
@@ -179,6 +192,8 @@ document.addEventListener("DOMSubtreeModified", function() {
 //setInterval(checkLiveTime, 500);
 
 //window.onload = displayCommment("Comment is the best thing");
+console.log("hiihihi")
+var intervalID1 = window.setInterval(checkLiveTime, 500);
 
-var intervalID = window.setInterval(checkLiveTime, 500);
+// var intervalID2 = window.setInterval(checkLiveTime, 500);
 
