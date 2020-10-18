@@ -3,9 +3,8 @@
   /* <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script> */
 }
-const { doesNotMatch } = require('assert');
 const firebase = require('firebase');
-var admin = require('firebase/firestore');
+require('firebase/firestore');
 
 var firebaseConfig = {
   apiKey: 'AIzaSyCZ4aKEj0k1tOXw9C1fbhgbs5lXU7GQMQ0',
@@ -32,30 +31,23 @@ function writeData(classId, timeStamp, comment) {
         if (data[timeStamp] == null || data[timeStamp] == '') {
           dataObj[timeStamp] = [comment];
           console.log('in if');
-          usersRef.update(dataObj).then(function () {
-            console.log('end');
-          });
+          usersRef.update(dataObj);
+          return true;
         } else {
           dataObj[timeStamp] = data[timeStamp];
           dataObj[timeStamp].push(comment);
-          console.log('in else');
-          usersRef.update(dataObj).then(function () {
-            console.log('end');
-          });
+          usersRef.update(dataObj);
+          return true;
         }
       });
     } else {
       let dataObj = {};
       dataObj[timeStamp] = [comment];
-      console.log('in a very different place');
-      usersRef.set(dataObj).then(function () {
-        console.log('end');
-      });
+      usersRef.set(dataObj);
+      return true;
     }
   });
+  return true;
 }
-// var count = 0;
-// if (count == 0) {
-//   writeData('new2', '00:17', 'hi');
-//   count++;
-// }
+
+writeData('testing', '00:21', 'this is from write again');
