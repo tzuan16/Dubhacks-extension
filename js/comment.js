@@ -7,7 +7,7 @@ console.log("yoouououououoou")
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        console.log(request.comment)
+        writeDataToFireBase(request.comment)
         sendResponse({ confirm: "received" })
     });
 
@@ -23,8 +23,13 @@ comments.sort(function (comment1, comment2) {
 
 var oldURL = location.href;
 
-function writeDataToFireBase(){
-    
+function writeDataToFireBase(comment){
+    var liveTime = getVideoTime();
+    console.log(liveTime);
+    var href = location.href.split('/');
+    // if (href.length > )
+    console.log(href[5]);
+    console.log(comment)
 }
 
 function checkURL() {
@@ -199,7 +204,7 @@ document.addEventListener("DOMSubtreeModified", function () {
 
 //window.onload = displayCommment("Comment is the best thing");
 console.log("hiihihi")
-var intervalID1 = window.setInterval(checkLiveTime, 500);
+// var intervalID1 = window.setInterval(checkLiveTime, 500);
 
 // var intervalID2 = window.setInterval(checkLiveTime, 500);
 
