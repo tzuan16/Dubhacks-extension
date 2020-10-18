@@ -24,22 +24,21 @@ var db = firebase.firestore();
 function writeData(classId, timeStamp, comment) {
   const usersRef = db.collection('Classes').doc(classId);
   usersRef.get().then((docSnapshot) => {
+    // makes sure class exists
     let dataObj = {};
     if (docSnapshot.exists) {
-      usersRef.onSnapshot((doc) => {
-        var data = doc.data();
-        if (data[timeStamp] == null || data[timeStamp] == '') {
-          dataObj[timeStamp] = [comment];
-          console.log('in if');
-          usersRef.update(dataObj);
-          return true;
-        } else {
-          dataObj[timeStamp] = data[timeStamp];
-          dataObj[timeStamp].push(comment);
-          usersRef.update(dataObj);
-          return true;
-        }
-      });
+      var data = docSnapshot.data();
+      if (data[timeStamp] == null || data[timeStamp] == '') {
+        dataObj[timeStamp] = [comment];
+        usersRef.update(dataObj);
+        return true;
+      } else {
+        dataObj[timeStamp] = data[timeStamp];
+        dataObj[timeStamp].push(comment);
+        console.log(dataObj);
+        usersRef.update(dataObj);
+        return true;
+      }
     } else {
       let dataObj = {};
       dataObj[timeStamp] = [comment];
@@ -47,7 +46,4 @@ function writeData(classId, timeStamp, comment) {
       return true;
     }
   });
-  return true;
 }
-
-writeData('testing', '00:21', 'this is from write again');
