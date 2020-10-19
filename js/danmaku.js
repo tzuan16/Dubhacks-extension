@@ -17,7 +17,8 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
 function writeData(classId, timeStamp, comment) {
-  const usersRef = db.collection('Classes').doc(classId);
+  var schoolId = getSchool();
+  const usersRef = db.collection(schoolId).doc(classId);
   usersRef.get().then((docSnapshot) => {
     // makes sure class exists
     let dataObj = {};
@@ -49,11 +50,18 @@ function getURL() {
   return href[5].split('?')[0];
 }
 
+function getSchool() {
+  var href = location.href.split('/');
+  var schoolLink = href[2].split('?')[0];
+  return schoolLink.split('.')[0];
+}
+
 console.log(getURL());
 
 async function readData(classId) {
+  var schoolId = getSchool();
   const data = await db
-    .collection('Classes')
+    .collection(schoolId)
     .doc(classId)
     .get()
     .then((res) => {
